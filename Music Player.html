@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <style>
+
+        body {
+            background-color: #ebebeb;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: arial;
+        }
+
+        #container {
+            position: relative;
+            border: 1px solid lightgray;
+            border-radius: 20px;
+            box-shadow: 13px 13px 26px rgba(190, 190, 190, 0.5),
+              -13px -13px 26px rgba(255, 255, 255, 0.5);
+            background: linear-gradient(to bottom, rgb(230, 230, 230), rgb(245, 245, 245));
+            width: 350px;
+            height: 700px;
+        }
+        #up{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 55px 25px 0 25px;
+            margin-bottom: 65px;
+        }
+        ion-icon{
+            width: 30px;
+            height: 30px;
+        }
+        #menuBtn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(145deg, #f8f8f8, #cacaca);
+            box-shadow: 
+                3px 3px 6px #bebebe,
+                -3px -3px 6px #ffffff;
+            border: none;
+            cursor: pointer;
+        }
+        #menuBtn:active{
+            background: #e0e0e0;
+            box-shadow: 
+               inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff;
+        }
+        #upperText{
+            color: #555555;
+            font-size: 30px;
+            margin: 0;
+        }
+        #searchBtn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(145deg, #f8f8f8, #cacaca);
+            box-shadow: 
+                3px 3px 6px #bebebe,
+                -3px -3px 6px #ffffff;
+            border: none;
+            cursor: pointer;
+        }
+        #searchBtn:active{
+            background: #e0e0e0;
+            box-shadow: 
+               inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff;
+        }
+        
+
+        #bottom{
+            position: absolute;
+            bottom: 35px;
+            left: 0;
+            right: 0;
+        }
+        #timeLinePosition{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #timeLine{
+            width: 300px;
+            height: 10px;
+            border-radius: 5px;
+            background-color:  rgb(140, 179, 179);
+            margin-bottom: 50px;
+        }
+        #timeTextPosition{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-left: 25px;
+            margin-right: 25px;
+        }
+        .timeText{
+            color: rgb(140, 179, 179);
+            margin-bottom: 5px;
+        }
+
+        #funtionIconsBox{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-bottom: 40px;
+        }
+        .bottomIcons{
+            color: rgb(140, 179, 179);
+            box-shadow: 
+                5px 5px 10px #bebebe,
+                -5px -5px 10px #ffffff;
+            border-radius: 50%;
+            transition: box-shadow 0.2s ease-in-out;
+        }
+
+        #shuffleIcon{
+            width: 25px;
+            height: 25px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        #shuffleIcon:active{
+            background: #e0e0e0;
+            box-shadow: 
+               inset 4px 4px 8px #bebebe, inset -4px -4px 8px #ffffff;
+        }
+        #previousIcon{
+            width: 30px;
+            height: 30px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        #previousIcon:active{
+            background: #e0e0e0;
+            box-shadow: 
+               inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff;
+        }
+        #pauseIcon{
+            width: 40px;
+            height: 40px;
+            padding: 7px;
+            cursor: pointer;
+        }
+        .active{
+            background: #e0e0e0;
+            box-shadow: 
+               inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff;
+        }
+        #forwardIcon{
+            width: 30px;
+            height: 30px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        #forwardIcon:active{
+            background: #e0e0e0;
+            box-shadow: 
+               inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff;
+        }
+        #repeatIcon{
+            width: 25px;
+            height: 25px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        #repeatIcon:active{
+            background: #e0e0e0;
+            box-shadow: 
+               inset 4px 4px 8px #bebebe, inset -4px -4px 8px #ffffff;
+        }
+        #effectLinePosition{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #effectLine{
+            width: 175px;
+            height: 3px;
+            background-color: rgb(140, 179, 179);
+        }
+        
+        #songImage{
+            display: grid;
+            place-items: center;
+            margin-bottom: 10px;
+           
+        }
+        .shadowsImage{
+            box-shadow: 
+                5px 5px 10px #bebebe,
+                -5px -5px 10px #ffffff;
+            border-radius: 50%;
+        }
+        #songName{
+            font-family: sans-serif;
+            color: #555555;
+            text-align: center;
+            font-size: 40px;
+            font-weight: bold;
+
+        }
+        #authorName{
+            font-size: 25px;
+            color: rgb(140, 179, 179);
+            text-align: center;
+        }
+
+
+
+
+        .album-cover{
+            width: 210px;
+            height: 210px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 
+                10px 10px 20px #bebebe,
+                -20px -20px 40px #ffffff;
+        }
+        .album-cover {
+            box-shadow: 0px 0px 30px rgba(0,0,0,0.5);
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="up">
+            <button id="menuBtn">
+                <ion-icon name="menu-outline"></ion-icon>
+            </button>
+            <p id="upperText">Now Playing</p>
+            <button id="searchBtn">
+                <ion-icon name="search-outline"></ion-icon>
+            </button>
+        </div>
+        <div id="middle">
+            <div id="songImage">
+                <div class="shadowsImage"></div>
+            </div>
+            <div id="songName"></div>
+            <div id="authorName"></div>
+        </div>
+        <div id="bottom">
+            <div id="timeTextPosition">
+                <p id="timeStart" class="timeText">0:00</p>
+                <p id="timeEnd" class="timeText"></p>
+            </div>
+            <div id="timeLinePosition">
+                <div id="timeLine"></div>
+            </div>
+            <div id="funtionIconsBox">
+                <ion-icon name="shuffle" class="bottomIcons" id="shuffleIcon"></ion-icon>
+                <ion-icon name="play-skip-back" class="bottomIcons" id="previousIcon"></ion-icon>
+                <ion-icon name="pause" class="bottomIcons" id="pauseIcon"></ion-icon>
+                <ion-icon name="play-skip-forward" class="bottomIcons" id="forwardIcon"></ion-icon>
+                <ion-icon name="repeat-outline" class="bottomIcons" id="repeatIcon"></ion-icon>
+            </div>
+            <div id="effectLinePosition">
+                <div id="effectLine"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        const timeStart = document.getElementById('timeStart');
+        const timeEnd = document.getElementById('timeEnd');
+        const timeLine = document.getElementById('timeLine');
+        const shuffleBtn = document.getElementById('shuffleIcon');
+        const previousBtn = document.getElementById('previousIcon');
+        const pauseBtn = document.getElementById('pauseIcon');
+        const forwardBtn = document.getElementById('forwardIcon');
+        const repeatBtn = document.getElementById('repeatIcon');
+        const songImage = document.getElementById('songImage');
+        const songName = document.getElementById('songName');
+        const authorName = document.getElementById('authorName');
+
+        let clicked = false;
+        let repeat = false;
+        let currentIndex = 0;
+        let minute = 00;
+        let second = 00;
+
+        const songs = [
+                {
+                    title: "Bathub",
+                    artist: "Jamania",
+                    albumCover: "Bathub.png",
+                    duration: "1:22",
+                    file: "onlymp3.to - Bathtub-n58iTTwWFKQ-256k-1656415218889.mp3"
+                },
+                {
+                    title: "Heartfelt",
+                    artist: "snaate",
+                    albumCover: "Heartfelt.png",
+                    duration: "1:26",
+                    file: "onlymp3.to - Heartfelt-3hOq3-7KHaE-256k-1656763111503.mp3"
+                },
+                {
+                    title: "Into the Wild",
+                    artist: "Bristic",
+                    albumCover: "IntoTheWild.png",
+                    duration: "1:48",
+                    file: "onlymp3.to - Into the Wild-9QEJreO3uZM-256k-1656693869871.mp3"
+                }
+            ];
+
+            const albumCoverElement = document.createElement('img');
+            albumCoverElement.classList.add('album-cover');
+            albumCoverElement.src = songs[currentIndex].albumCover;
+            authorName.textContent = songs[currentIndex].artist;
+            songName.textContent = songs[currentIndex].title;
+            songImage.appendChild(albumCoverElement);
+            timeEnd.textContent = songs[currentIndex].duration;
+
+            const audioElement = document.createElement('audio');
+            audioElement.src = songs[currentIndex].file;
+            audioElement.load();
+            
+            setInterval(function() {
+                formatTime();
+            }, 50);
+
+//--------------------------------------buttons--------------------------------------
+            
+            shuffleBtn.addEventListener('click', function(){
+                loadRandomSong();
+            });
+            previousBtn.addEventListener('click', function(){
+                loadPreviousSong();
+            });
+            pauseBtn.addEventListener('click', function(){
+                pauseBtn.classList.toggle('active');
+                if(!clicked){
+                    play();
+                    clicked = true;
+                } else if (clicked){
+                    pause();
+                    clicked = false;
+                }
+            });
+            forwardBtn.addEventListener('click', function(){
+                loadNextSong();
+            });
+            repeatBtn.addEventListener('click', function(){
+                repeatBtn.classList.toggle('active');
+                clicked = !clicked;
+                repeat = !clicked ? true : false;
+            });
+            
+
+//-------------------------------------functions-------------------------------------
+            
+            function play(){
+                audioElement.play();
+            }
+            function pause(){
+                audioElement.pause();
+            }
+            function loadNextSong() {
+                currentIndex++;
+                if (currentIndex >= songs.length) {
+                    currentIndex = 0;
+                }
+                
+                albumCoverElement.src = songs[currentIndex].albumCover;
+                authorName.textContent = songs[currentIndex].artist;
+                songName.textContent = songs[currentIndex].title;
+                audioElement.src = songs[currentIndex].file;
+                audioElement.load();
+                timeEnd.textContent = songs[currentIndex].duration;
+            }
+            function loadPreviousSong() {
+                currentIndex--;
+                if (currentIndex < 0) {
+                    currentIndex = 2;
+                }
+                
+                albumCoverElement.src = songs[currentIndex].albumCover;
+                authorName.textContent = songs[currentIndex].artist;
+                songName.textContent = songs[currentIndex].title;
+                audioElement.src = songs[currentIndex].file;
+                audioElement.load();
+                timeEnd.textContent = songs[currentIndex].duration;
+            }
+            function loadRandomSong(){
+                let randomIndex = Math.floor(Math.random() * songs.length);
+
+                currentIndex = randomIndex;
+
+                albumCoverElement.src = songs[currentIndex].albumCover;
+                authorName.textContent = songs[currentIndex].artist;
+                songName.textContent = songs[currentIndex].title;
+                audioElement.src = songs[currentIndex].file;
+                audioElement.load();
+                timeEnd.textContent = songs[currentIndex].duration;
+            }
+            function formatTime() {
+                let minutes = Math.floor((audioElement.currentTime % 3600) / 60);
+                let seconds = Math.floor(audioElement.currentTime % 60);
+
+                minutes = minutes.toString().padStart(1, '0');
+                seconds = seconds.toString().padStart(2, '0');
+
+                timeStart.textContent = `${minutes}:${seconds}`;
+            }
+
+//----------------------------------------keys----------------------------------------
+
+    /*space*/       document.addEventListener('keydown', function(event){
+                        if(event.keyCode === 32){  
+                        pauseBtn.classList.toggle('active');
+                            if(!clicked){
+                                play();
+                                clicked = true;
+                            } else if (clicked){
+                                pause();
+                                clicked = false;
+                            }
+                        }
+                    });
+    /*rightArrow*/  document.addEventListener('keydown', function(event){
+                        if(event.keyCode === 39){
+                            audioElement.currentTime += 5;
+                            formatTime();
+                        }
+                    });
+    /*lefttArrow*/  document.addEventListener('keydown', function(event){
+                        if(event.keyCode === 37){
+                            audioElement.currentTime -= 5;
+                            formatTime();
+                        }
+                    });
+
+//-------------------------------------audioElement------------------------------------
+
+            audioElement.addEventListener('timeupdate', function() {
+                const currentTime = audioElement.currentTime;
+            });
+            audioElement.addEventListener("ended", function() {
+                if(repeat){
+                    audioElement.currentTime = 0;
+                    play();
+                }
+            });
+            audioElement.addEventListener('ended', function(){
+                loadNextSong();
+                setTimeout(function(){
+                    play();
+                }, 1000);
+            });
+    
+    </script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
